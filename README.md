@@ -1,1 +1,1 @@
-###BingMapAutoSuggestAPI
+```BingMapAutoSuggestAPI```
