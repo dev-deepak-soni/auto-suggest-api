@@ -5,8 +5,9 @@ import Suggestions from './Suggestions';
 import { ToastContainer, toast } from 'react-toastify';
 
 import 'react-toastify/dist/ReactToastify.css';
+import { BingMapApiKey } from '../config/Creds';
 
-const Dashboard = () => {
+const DashboardForm = () => {
 
     const [Latitude, setLatitude] = useState('');
     const [Longitude, setLongitude] = useState('');
@@ -34,7 +35,7 @@ const Dashboard = () => {
                 initialValues={{ queryString: '', radius: '', entityType: [], language: '', region: '', country: '' }}
                 validationSchema={Yup.object({
                     radius: Yup.number()
-                        .max(500000, 'Must be 50000 Meter or less')
+                        .max(50000, 'Must be 50000 Meter or less')
                         .min(100, 'Minimum value should be 100 Meter.')
                         .required('Required'),
                     entityType: Yup.array().min(1, 'Select atleast one option of Category').of(Yup.string().required()).required(),
@@ -50,7 +51,7 @@ const Dashboard = () => {
 
                 })}
                 onSubmit={async (values, { setSubmitting }) => {
-                    const URL = `http://dev.virtualearth.net/REST/v1/Autosuggest?query=${values.queryString}&userLocation=${Latitude},${Longitude},${values.radius}&maxResults=10&includeEntityTypes=${values.entityType.toString()}&culture=${values.language}&userRegion=${values.region}&countryFilter=${values.country}&key=AkNdTuAN3LINnbCAbAbGQBux8IONwxKk1Cw4WvcqhOT9NtJ_7_r_yAnn9-s0zMYo`;
+                    const URL = `http://dev.virtualearth.net/REST/v1/Autosuggest?query=${values.queryString}&userLocation=${Latitude},${Longitude},${values.radius}&maxResults=10&includeEntityTypes=${values.entityType.toString()}&culture=${values.language}&userRegion=${values.region}&countryFilter=${values.country}&key=${BingMapApiKey}`;
                     console.log('URL', URL);
 
                     const fetchData = await fetch(URL);
@@ -150,9 +151,14 @@ const Dashboard = () => {
                                 {/* <Field name="region" type="region" className='border border-black' /> */}
                                 <Field name="region" as="select" className="my-select border border-black w-44">
                                     <option value="">Select</option>
+                                    <option value="GB">United Kingdom</option>
+                                    <option value="GB-ENG">England</option>
+                                    <option value="GB-NIR">Northern Ireland</option>
+                                    <option value="GB-SCT">Scotland</option>
+                                    <option value="GB-WLS">Wales</option>
+                                    <option value="IE">Ireland</option>
                                     <option value="IN">India</option>
                                     <option value="DE">DE</option>
-                                    <option value="UK">UK</option>
                                     <option value="US">USA</option>
                                 </Field>
                             </div>
@@ -167,9 +173,14 @@ const Dashboard = () => {
                             <div>
                                 <Field name="country" as="select" className="my-select border border-black w-44">
                                     <option value="">Select</option>
+                                    <option value="GB">United Kingdom</option>
+                                    <option value="GB-ENG">England</option>
+                                    <option value="GB-NIR">Northern Ireland</option>
+                                    <option value="GB-SCT">Scotland</option>
+                                    <option value="GB-WLS">Wales</option>
+                                    <option value="IE">Ireland</option>
                                     <option value="IN">India</option>
                                     <option value="DE">DE</option>
-                                    <option value="UK">UK</option>
                                     <option value="US">USA</option>
                                 </Field>
                             </div>
@@ -203,4 +214,4 @@ const Dashboard = () => {
     )
 }
 
-export default Dashboard
+export default DashboardForm

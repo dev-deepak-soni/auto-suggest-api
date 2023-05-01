@@ -1,0 +1,1 @@
+export const BingMapApiKey = process.env.REACT_APP_BINGMAP_API_KEY
